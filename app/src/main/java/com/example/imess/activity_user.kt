@@ -1,9 +1,8 @@
-package com.example.customlistview
+package com.example.imess
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.customlistview.databinding.ActivityMainBinding
-import com.example.customlistview.databinding.ActivityUserBinding
+import com.example.imess.databinding.ActivityUserBinding
 
 class activity_user : AppCompatActivity() {
 

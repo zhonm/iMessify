@@ -1,4 +1,4 @@
-package com.example.customlistview
+package com.example.imess
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -31,7 +31,7 @@ class MyAdapter(private val context: Activity, private val arrayList: ArrayList<
         }
 
         val user = arrayList[position]
-        Glide.with(context).load(user.image_id).into(holder.imageView)
+        Glide.with(holder.imageView).load(user.image_id).into(holder.imageView)
         holder.username.text = user.name
         holder.lastMessage.text = user.last_Message
         holder.lastMsgTime.text = user.last_Msg_time

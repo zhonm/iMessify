@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.customlistview'
+    namespace 'com.example.imess'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.customlistview"
+        applicationId "com.example.imess"
         minSdk 21
         targetSdk 33
         versionCode 1
@@ -24,8 +24,9 @@ android {
         }
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
     compileOptions {

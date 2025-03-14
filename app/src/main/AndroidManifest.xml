@@ -9,7 +9,7 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CustomListView"
+        android:theme="@style/Theme.iMess"
         tools:targetApi="31">
         <activity
             android:name=".LoginActivity"

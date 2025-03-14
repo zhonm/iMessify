@@ -1,4 +1,4 @@
-package com.example.customlistview
+package com.example.imess
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.customlistview.databinding.FragmentContactsBinding
+import com.example.imess.databinding.FragmentContactsBinding
 
 class ContactsFragment : Fragment() {
 

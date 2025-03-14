@@ -15,5 +15,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "CustomListView"
+rootProject.name = "iMess"
 include ':app'
