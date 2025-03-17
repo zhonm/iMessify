@@ -107,7 +107,11 @@
                 android:layout_marginTop="16dp"
                 android:text="Create an account"
                 android:textColor="#1877F2"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:background="@drawable/account_text_ripple"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

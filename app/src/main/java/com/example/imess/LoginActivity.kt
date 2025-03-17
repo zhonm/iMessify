@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
+import android.net.Uri
 
 class LoginActivity : AppCompatActivity() {
 
@@ -49,7 +50,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvForgotPassword.setOnClickListener {
-            Toast.makeText(this, "Username: admin, Password: admin", Toast.LENGTH_SHORT).show()
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://support.apple.com/en-ph/108647")
+            startActivity(intent)
         }
     }
 }

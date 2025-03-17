@@ -47,13 +47,13 @@ class ContactsFragment : Fragment() {
 
     private fun loadContacts() {
         val imageId = intArrayOf(
-            R.drawable.pic1, R.drawable.pic11, R.drawable.pic12, R.drawable.pic13, R.drawable.pic10,
+            R.drawable.pic1, R.drawable.pic11, R.drawable.pic13, R.drawable.pic12, R.drawable.pic10,
             R.drawable.pic2, R.drawable.pic3, R.drawable.pic4, R.drawable.pic5,
             R.drawable.pic6, R.drawable.pic7, R.drawable.pic8, R.drawable.pic9
         )
         val name = arrayOf(
-            "Myles the spidey", "Eyables", "Spakol", "Dayaper", "Hayden and Pogi", "Ayu the kups",
-            "Jose the aswang", "Hayden the small", "Groc", "Kupalerski",
+            "Zhon the designerist", "Hayden the fisher", "Ayu the kups", "Spakol", "Kupalerski", "Chimken",
+            "Jose the aswang", "Hayden the small", "Groc", "Mang kepweng",
             "Grabe ba", "Angas naman", "Pogito"
         )
         val phone_no = arrayOf(

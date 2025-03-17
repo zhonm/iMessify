@@ -1,11 +1,9 @@
-<!-- res/drawable/ic_profile.xml -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
-    android:viewportHeight="24"
-    android:tint="?attr/colorControlNormal">
+    android:viewportHeight="24">
     <path
         android:fillColor="@android:color/white"
-        android:pathData="M12,12c2.21,0 4,-1.79 4,-4s-1.79,-4 -4,-4 -4,1.79 -4,4 1.79,4 4,4zM12,14c-2.67,0 -8,1.34 -8,4v2h16v-2c0,-2.66 -5.33,-4 -8,-4z"/>
+        android:pathData="M12,12.75C10.76,12.75 9.67,12.29 8.82,11.44C7.96,10.59 7.5,9.5 7.5,8.25C7.5,7 7.96,5.91 8.82,5.06C9.67,4.21 10.76,3.75 12,3.75C13.24,3.75 14.33,4.21 15.18,5.06C16.04,5.91 16.5,7 16.5,8.25C16.5,9.5 16.04,10.59 15.18,11.44C14.33,12.29 13.24,12.75 12,12.75ZM4,20.25C4,18.38 4.62,16.92 5.86,15.86C7.1,14.8 8.77,14.25 10.86,14.25H13.14C15.23,14.25 16.9,14.8 18.14,15.86C19.38,16.92 20,18.38 20,20.25C20,20.5 19.9,20.69 19.7,20.82C19.5,20.94 19.29,21 19.09,21H4.91C4.71,21 4.5,20.94 4.3,20.82C4.1,20.69 4,20.5 4,20.25Z"/>
 </vector>

@@ -10,4 +10,7 @@
     <color name="messenger_blue">#0084FF</color>
     <color name="messenger_blue_alpha">#800084FF</color>
     <color name="text_secondary">#757575</color>
+    <!-- In res/values/colors.xml -->
+    <color name="ios_blue">#007AFF</color>
+    <color name="ios_gray">#8E8E93</color>
 </resources>

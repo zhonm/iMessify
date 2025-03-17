@@ -25,18 +25,18 @@ class MessagesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val imageId = intArrayOf(
-            R.drawable.pic1, R.drawable.pic11, R.drawable.pic12, R.drawable.pic13, R.drawable.pic10,
+            R.drawable.pic1, R.drawable.pic11, R.drawable.pic13, R.drawable.pic12, R.drawable.pic10,
             R.drawable.pic2, R.drawable.pic3, R.drawable.pic4, R.drawable.pic5,
             R.drawable.pic6, R.drawable.pic7, R.drawable.pic8, R.drawable.pic9
         )
         val name = arrayOf(
-            "Myles the spidey", "Eyables", "Spakol", "Dayaper", "Hayden and Pogi", "Ayu the kups",
-            "Jose the aswang", "Hayden the small", "Groc", "Kupalerski",
+            "Zhon the designerist", "Hayden the fisher", "Ayu the kups", "Spakol", "Kupalerski", "Chimken",
+            "Jose the aswang", "Hayden the small", "Groc", "Mang kepweng",
             "Grabe ba", "Angas naman", "Pogito"
         )
         val last_Message = arrayOf(
-            "Goodluck baby, I love you!", "Pre ano sagot sa assignment", "You: Sent an image",
-            "May issue daw si ano", "When tayo gawa capstone", "Saan may eabab?", "Hindi kita ma reach",
+            "Tara ahon wala naman class", "Laki ba ng isda ko", "Sipat sipat lang aq here",
+            "You: Sent an image", "When tayo gawa capstone", "Saan may eabab?", "Hindi kita ma reach",
             "Emel tayo ya", "Ba't ba ang pogi mo", "Penge code", "Sige ganiyanan na",
             "May quiz na sa ITEL", "Punta tayo tbird"
         )
