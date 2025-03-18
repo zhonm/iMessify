@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.imess.databinding.FragmentMessagesBinding
+import android.text.Editable
+import android.text.TextWatcher
+import androidx.recyclerview.widget.LinearLayoutManager
 
 class MessagesFragment : Fragment() {
 
@@ -57,9 +60,36 @@ class MessagesFragment : Fragment() {
             userArrayList.add(user)
         }
 
-        binding.messagesRecyclerView.isClickable = true
+        binding.messagesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.messagesRecyclerView.adapter = MyAdapter(requireActivity(), userArrayList)
-        // Click listener removed as it's no longer needed for messages
+
+        // Add search functionality
+        binding.searchContacts.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterMessages(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun filterMessages(query: String) {
+        val filteredList = ArrayList<User>()
+
+        if (query.isEmpty()) {
+            filteredList.addAll(userArrayList)
+        } else {
+            for (user in userArrayList) {
+                if (user.name.lowercase().contains(query.lowercase()) ||
+                    user.last_Message.lowercase().contains(query.lowercase())) {
+                    filteredList.add(user)
+                }
+            }
+        }
+
+        (binding.messagesRecyclerView.adapter as MyAdapter).updateList(filteredList)
     }
 
     override fun onDestroyView() {

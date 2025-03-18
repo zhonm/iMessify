@@ -27,7 +27,7 @@ class ContactsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_contact, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.list_contact, parent, false)
         return ViewHolder(view)
     }
 

@@ -4,15 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText  // Changed from TextInputEditText
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.textfield.TextInputEditText
 import android.net.Uri
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var etUsername: TextInputEditText
-    private lateinit var etPassword: TextInputEditText
+    private lateinit var etUsername: EditText  // Changed from TextInputEditText
+    private lateinit var etPassword: EditText  // Changed from TextInputEditText
     private lateinit var btnLogin: Button
     private lateinit var tvForgotPassword: TextView
 

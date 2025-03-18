@@ -1,48 +1,43 @@
 package com.example.imess
 
-import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MyAdapter(private val context: Activity, private val arrayList: ArrayList<User>)
-    : ArrayAdapter<User>(context, R.layout.list_item, arrayList) {
+class MyAdapter(private val context: Context, private val userList: ArrayList<User>) :
+    RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val holder: ViewHolder
-        val rowView: View
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_message, parent, false)
+        return ViewHolder(view)
+    }
 
-        if (convertView == null) {
-            rowView = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
-            holder = ViewHolder(
-                rowView.findViewById(R.id.profile_pic),
-                rowView.findViewById(R.id.person_name),
-                rowView.findViewById(R.id.last_message),
-                rowView.findViewById(R.id.msg_time)
-            )
-            rowView.tag = holder
-        } else {
-            rowView = convertView
-            holder = rowView.tag as ViewHolder
-        }
-
-        val user = arrayList[position]
-        Glide.with(holder.imageView).load(user.image_id).into(holder.imageView)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val user = userList[position]
+        Glide.with(context).load(user.image_id).into(holder.imageView)
         holder.username.text = user.name
         holder.lastMessage.text = user.last_Message
         holder.lastMsgTime.text = user.last_Msg_time
-
-        return rowView
     }
 
-    private data class ViewHolder(
-        val imageView: ImageView,
-        val username: TextView,
-        val lastMessage: TextView,
-        val lastMsgTime: TextView
-    )
+    override fun getItemCount(): Int = userList.size
+
+    // Add this method to support filtered lists
+    fun updateList(newList: ArrayList<User>) {
+        userList.clear()
+        userList.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageView: ImageView = itemView.findViewById(R.id.profile_pic)
+        val username: TextView = itemView.findViewById(R.id.person_name)
+        val lastMessage: TextView = itemView.findViewById(R.id.last_message)
+        val lastMsgTime: TextView = itemView.findViewById(R.id.msg_time)
+    }
 }
