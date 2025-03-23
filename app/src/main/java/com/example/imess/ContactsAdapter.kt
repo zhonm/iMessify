@@ -17,7 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class ContactsAdapter(
     private val context: Context
-) : ListAdapter<User, ContactsAdapter.ViewHolder>(ContactDiffCallback()) {
+) : ListAdapter<UserAdapter, ContactsAdapter.ViewHolder>(ContactDiffCallback()) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contactImage: ImageView = itemView.findViewById(R.id.contact_image)
@@ -46,7 +46,7 @@ class ContactsAdapter(
         holder.contactPhone.text = contact.phone_no
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, activity_user::class.java)
+            val intent = Intent(context, UserFragment::class.java)
             intent.putExtra("name", contact.name)
             intent.putExtra("phone", contact.phone_no)
             intent.putExtra("imageId", contact.image_id)
@@ -60,12 +60,12 @@ class ContactsAdapter(
         }
     }
 
-    class ContactDiffCallback : DiffUtil.ItemCallback<User>() {
-        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+    class ContactDiffCallback : DiffUtil.ItemCallback<UserAdapter>() {
+        override fun areItemsTheSame(oldItem: UserAdapter, newItem: UserAdapter): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+        override fun areContentsTheSame(oldItem: UserAdapter, newItem: UserAdapter): Boolean {
             return oldItem == newItem
         }
     }

@@ -1,20 +1,24 @@
 package com.example.imess
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import com.example.imess.databinding.FragmentMessagesBinding
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.imess.databinding.FragmentMessagesBinding
 
 class MessagesFragment : Fragment() {
 
     private var _binding: FragmentMessagesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var userArrayList: ArrayList<User>
+    private lateinit var userAdapterArrayList: ArrayList<UserAdapter>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +30,15 @@ class MessagesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Setup back button listener to show logout dialog
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    showLogoutConfirmationDialog()
+                }
+            }
+        )
 
         val imageId = intArrayOf(
             R.drawable.pic1, R.drawable.pic11, R.drawable.pic13, R.drawable.pic12, R.drawable.pic10,
@@ -53,15 +66,15 @@ class MessagesFragment : Fragment() {
             "09123456789", "09123456789", "09123456789", "09123456789",
         )
 
-        userArrayList = ArrayList()
+        userAdapterArrayList = ArrayList()
 
         for (i in name.indices) {
-            val user = User(name[i], last_Message[i], last_msg_time[i], phone_no[i], imageId[i])
-            userArrayList.add(user)
+            val userAdapter = UserAdapter(name[i], last_Message[i], last_msg_time[i], phone_no[i], imageId[i])
+            userAdapterArrayList.add(userAdapter)
         }
 
         binding.messagesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.messagesRecyclerView.adapter = MyAdapter(requireActivity(), userArrayList)
+        binding.messagesRecyclerView.adapter = MessagesAdapter(requireActivity(), userAdapterArrayList)
 
         // Add search functionality
         binding.searchContacts.addTextChangedListener(object : TextWatcher {
@@ -75,13 +88,44 @@ class MessagesFragment : Fragment() {
         })
     }
 
+    private fun showLogoutConfirmationDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_logout, null)
+        dialogBuilder.setView(dialogView)
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
+
+        val btnCancel = dialogView.findViewById<TextView>(R.id.btnCancel)
+        val btnLogout = dialogView.findViewById<TextView>(R.id.btnLogout)
+
+        btnCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnLogout.setOnClickListener {
+            logoutUser()
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
+    private fun logoutUser() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
+
     private fun filterMessages(query: String) {
-        val filteredList = ArrayList<User>()
+        val filteredList = ArrayList<UserAdapter>()
 
         if (query.isEmpty()) {
-            filteredList.addAll(userArrayList)
+            filteredList.addAll(userAdapterArrayList)
         } else {
-            for (user in userArrayList) {
+            for (user in userAdapterArrayList) {
                 if (user.name.lowercase().contains(query.lowercase()) ||
                     user.last_Message.lowercase().contains(query.lowercase())) {
                     filteredList.add(user)
@@ -89,7 +133,7 @@ class MessagesFragment : Fragment() {
             }
         }
 
-        (binding.messagesRecyclerView.adapter as MyAdapter).updateList(filteredList)
+        (binding.messagesRecyclerView.adapter as MessagesAdapter).updateList(filteredList)
     }
 
     override fun onDestroyView() {

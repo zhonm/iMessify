@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.imess.databinding.ActivityUserBinding
 
-class activity_user : AppCompatActivity() {
+class UserFragment : AppCompatActivity() {
 
     private lateinit var binding : ActivityUserBinding
 

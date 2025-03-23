@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">iMess</string>
+    <string name="app_name">iMessify</string>
     <string name="login_title">Log in to continue</string>
     <string name="username_hint">Username or Email</string>
     <string name="password_hint">Password</string>
@@ -7,11 +7,9 @@
     <string name="create_account">Create an account</string>
     <string name="contacts">Contacts</string>
     <string name="search_contacts">Search contacts</string>
+    <string name="call_contact_description">Call contact</string>
     <string name="profile_username_placeholder">Loading name…</string>
     <string name="profile_email_placeholder">Loading email…</string>
     <string name="profile_phone_placeholder">Loading phone…</string>
     <string name="profile_location_placeholder">Loading location…</string>
-    <string name="instagram_user1">Manaois: @makie_mk</string>
-    <string name="instagram_user2">Dayap: @davidhaydenx</string>
-    <string name="instagram_user3">Butial: @ayubutial</string>
 </resources>

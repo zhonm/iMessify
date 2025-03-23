@@ -1,11 +1,15 @@
 package com.example.imess
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +20,7 @@ class ContactsFragment : Fragment() {
     private var _binding: FragmentContactsBinding? = null
     private val binding get() = _binding!!
     private lateinit var contactsAdapter: ContactsAdapter
-    private var originalList = ArrayList<User>()
+    private var originalList = ArrayList<UserAdapter>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,15 @@ class ContactsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Setup back button listener to show logout dialog
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    showLogoutConfirmationDialog()
+                }
+            }
+        )
 
         setupRecyclerView()
         loadContacts()
@@ -65,7 +78,7 @@ class ContactsFragment : Fragment() {
         originalList = ArrayList()
 
         for (i in name.indices) {
-            val contact = User(name[i], "", "", phone_no[i], imageId[i])
+            val contact = UserAdapter(name[i], "", "", phone_no[i], imageId[i])
             originalList.add(contact)
         }
 
@@ -94,6 +107,37 @@ class ContactsFragment : Fragment() {
             }
             contactsAdapter.submitList(filteredList)
         }
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_logout, null)
+        dialogBuilder.setView(dialogView)
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.dialog_bg)
+
+        val btnCancel = dialogView.findViewById<TextView>(R.id.btnCancel)
+        val btnLogout = dialogView.findViewById<TextView>(R.id.btnLogout)
+
+        btnCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        btnLogout.setOnClickListener {
+            logoutUser()
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
+
+    private fun logoutUser() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
