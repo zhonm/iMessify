@@ -1,4 +1,4 @@
-package com.example.imess
+package com.example.imessify
 
 import android.content.Context
 import android.content.Intent

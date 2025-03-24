@@ -1,4 +1,4 @@
-package com.example.imess
+package com.example.imessify
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.imess.databinding.FragmentMessagesBinding
+import com.example.imessify.databinding.FragmentMessagesBinding
 
 class MessagesFragment : Fragment() {
 

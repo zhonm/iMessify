@@ -1,8 +1,8 @@
-package com.example.imess
+package com.example.imessify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.imess.databinding.ActivityUserBinding
+import com.example.imessify.databinding.ActivityUserBinding
 
 class UserFragment : AppCompatActivity() {
 

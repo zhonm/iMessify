@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.imess'
+    namespace 'com.example.imessify'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.imess"
+        applicationId "com.example.imessify"
         minSdk 21
         targetSdk 33
         versionCode 1

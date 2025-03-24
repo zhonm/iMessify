@@ -1,4 +1,4 @@
-package com.example.imess
+package com.example.imessify
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import android.net.Uri
 import android.os.Build
-import android.view.View
-import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
 

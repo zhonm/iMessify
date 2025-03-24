@@ -1,12 +1,11 @@
-package com.example.imess
+package com.example.imessify
 
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.imess.databinding.ActivityMainBinding
+import com.example.imessify.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

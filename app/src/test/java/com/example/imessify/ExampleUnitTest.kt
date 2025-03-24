@@ -1,4 +1,4 @@
-package com.example.imess
+package com.example.imessify
 
 import org.junit.Test
 
