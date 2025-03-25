@@ -4,19 +4,31 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.imessify.databinding.ActivityMainBinding
+import com.example.imessify.databinding.NavigationDrawerBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var drawerBinding: NavigationDrawerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup white status bar (now called after setContentView)
+        // Setup drawer layout
+        drawerLayout = binding.drawerLayout
+        drawerBinding = NavigationDrawerBinding.bind(findViewById(R.id.navigation_drawer))
+
+        // Setup drawer menu item clicks
+        setupDrawerListeners()
+
+        // Setup white status bar
         setupStatusBar()
 
         // Load MessagesFragment as default when app starts
@@ -41,6 +53,29 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> false
             }
+        }
+    }
+
+    private fun setupDrawerListeners() {
+        drawerBinding.navSettings.setOnClickListener {
+            // Handle settings click
+            drawerLayout.closeDrawer(GravityCompat.START)
+            // TODO: Navigate to settings screen
+        }
+
+        drawerBinding.navRecentlyDeleted.setOnClickListener {
+            // Handle recently deleted click
+            drawerLayout.closeDrawer(GravityCompat.START)
+            // TODO: Navigate to recently deleted screen
+        }
+    }
+
+    // Method to be called by fragments to toggle drawer
+    fun toggleDrawer() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            drawerLayout.openDrawer(GravityCompat.START)
         }
     }
 

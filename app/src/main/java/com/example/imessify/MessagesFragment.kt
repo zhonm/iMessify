@@ -31,6 +31,11 @@ class MessagesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Setup navigation drawer toggle
+        binding.btnMenu.setOnClickListener {
+            (activity as MainActivity).toggleDrawer()
+        }
+
         // Setup back button listener to show logout dialog
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
