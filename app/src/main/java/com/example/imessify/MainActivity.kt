@@ -1,5 +1,6 @@
 package com.example.imessify
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsetsController
@@ -58,15 +59,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupDrawerListeners() {
         drawerBinding.navSettings.setOnClickListener {
-            // Handle settings click
             drawerLayout.closeDrawer(GravityCompat.START)
-            // TODO: Navigate to settings screen
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
 
         drawerBinding.navRecentlyDeleted.setOnClickListener {
-            // Handle recently deleted click
             drawerLayout.closeDrawer(GravityCompat.START)
-            // TODO: Navigate to recently deleted screen
+            startActivity(Intent(this, RecentlyDeletedActivity::class.java))
         }
     }
 

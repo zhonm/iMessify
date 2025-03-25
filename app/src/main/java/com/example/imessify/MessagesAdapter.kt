@@ -12,6 +12,14 @@ import com.bumptech.glide.Glide
 class MessagesAdapter(private val context: Context, private val userAdapterList: ArrayList<UserAdapter>) :
     RecyclerView.Adapter<MessagesAdapter.ViewHolder>() {
 
+    // Add a variable to store the long click listener
+    private var onItemLongClickListener: (() -> Unit)? = null
+
+    // Method to set the long click listener
+    fun setOnItemLongClickListener(listener: () -> Unit) {
+        onItemLongClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_message, parent, false)
         return ViewHolder(view)
@@ -23,6 +31,12 @@ class MessagesAdapter(private val context: Context, private val userAdapterList:
         holder.username.text = user.name
         holder.lastMessage.text = user.last_Message
         holder.lastMsgTime.text = user.last_Msg_time
+
+        // Add long click listener to the item view
+        holder.itemView.setOnLongClickListener {
+            onItemLongClickListener?.invoke()
+            true
+        }
     }
 
     override fun getItemCount(): Int = userAdapterList.size
