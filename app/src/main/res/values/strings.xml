@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">iMessify</string>
     <string name="login_title">Log in to continue</string>
-    <string name="username_hint">Username or Email</string>
+    <string name="username_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="login_button">Log In</string>
     <string name="create_account">Create an account</string>

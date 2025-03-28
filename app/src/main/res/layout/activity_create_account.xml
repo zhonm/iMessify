@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".CreateAccountActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="118dp"
+        android:layout_height="110dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/createAccountTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/createAccountTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="Create an Account"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/usernameContainer" />
+
+    <FrameLayout
+        android:id="@+id/usernameContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/login_input_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountTitle"
+        app:layout_constraintBottom_toTopOf="@+id/emailContainer">
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="Username"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/ios_gray"
+            android:textSize="16sp"
+            android:importantForAutofill="no" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/emailContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/login_input_bg"
+        app:layout_constraintEnd_toEndOf="@+id/usernameContainer"
+        app:layout_constraintStart_toStartOf="@+id/usernameContainer"
+        app:layout_constraintTop_toBottomOf="@+id/usernameContainer"
+        app:layout_constraintBottom_toTopOf="@+id/passwordContainer">
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="Email address"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/ios_gray"
+            android:textSize="16sp"
+            android:importantForAutofill="no" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/passwordContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/login_input_bg"
+        app:layout_constraintEnd_toEndOf="@+id/emailContainer"
+        app:layout_constraintStart_toStartOf="@+id/emailContainer"
+        app:layout_constraintTop_toBottomOf="@+id/emailContainer"
+        app:layout_constraintBottom_toTopOf="@+id/confirmPasswordContainer">
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/ios_gray"
+            android:textSize="16sp"
+            android:importantForAutofill="no" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/confirmPasswordContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/login_input_bg"
+        app:layout_constraintEnd_toEndOf="@+id/passwordContainer"
+        app:layout_constraintStart_toStartOf="@+id/passwordContainer"
+        app:layout_constraintTop_toBottomOf="@+id/passwordContainer"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateAccount">
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="Confirm password"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/ios_gray"
+            android:textSize="16sp"
+            android:importantForAutofill="no" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_button_bg"
+        android:text="Create Account"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/confirmPasswordContainer"
+        app:layout_constraintStart_toStartOf="@+id/confirmPasswordContainer"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordContainer"
+        app:layout_constraintBottom_toTopOf="@+id/tvBackToLogin" />
+
+    <TextView
+        android:id="@+id/tvBackToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:text="Already have an account? Sign in"
+        android:textColor="@color/ios_blue"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreateAccount"
+        app:layout_constraintStart_toStartOf="@+id/btnCreateAccount"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateAccount"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
