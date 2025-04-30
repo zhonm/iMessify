@@ -15,9 +15,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
+// Renamed from UserAdapter to ContactModel
+data class ContactModel(
+    var name: String,
+    var last_Message: String,
+    var last_Msg_time: String,
+    var phone_no: String,
+    var image_id: Int,
+    var id: Int = -1
+)
+
 class ContactsAdapter(
     private val context: Context
-) : ListAdapter<UserAdapter, ContactsAdapter.ViewHolder>(ContactDiffCallback()) {
+) : ListAdapter<ContactModel, ContactsAdapter.ViewHolder>(ContactDiffCallback()) {
+
+    private var onItemLongClickListener: ((position: Int, contact: ContactModel) -> Unit)? = null
+
+    fun setOnItemLongClickListener(listener: (position: Int, contact: ContactModel) -> Unit) {
+        onItemLongClickListener = listener
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contactImage: ImageView = itemView.findViewById(R.id.contact_image)
@@ -53,6 +69,11 @@ class ContactsAdapter(
             context.startActivity(intent)
         }
 
+        holder.itemView.setOnLongClickListener {
+            onItemLongClickListener?.invoke(position, contact)
+            true
+        }
+
         holder.callButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:${contact.phone_no}")
@@ -60,12 +81,12 @@ class ContactsAdapter(
         }
     }
 
-    class ContactDiffCallback : DiffUtil.ItemCallback<UserAdapter>() {
-        override fun areItemsTheSame(oldItem: UserAdapter, newItem: UserAdapter): Boolean {
-            return oldItem.name == newItem.name
+    class ContactDiffCallback : DiffUtil.ItemCallback<ContactModel>() {
+        override fun areItemsTheSame(oldItem: ContactModel, newItem: ContactModel): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: UserAdapter, newItem: UserAdapter): Boolean {
+        override fun areContentsTheSame(oldItem: ContactModel, newItem: ContactModel): Boolean {
             return oldItem == newItem
         }
     }

@@ -45,6 +45,15 @@ class LoginActivity : AppCompatActivity() {
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
+        // Check if user is already logged in
+        val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        if (sharedPref.contains("user_id")) {
+            // User is already logged in, navigate to MainActivity
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         // Initialize views
         etEmail = findViewById(R.id.etUsername)
         etPassword = findViewById(R.id.etPassword)
@@ -101,12 +110,17 @@ class LoginActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (response.success) {
                         Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+
+                        // Save user info to SharedPreferences
+                        val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
+                        with(sharedPref.edit()) {
+                            response.username?.let { putString("username", it) }
+                            response.userId?.let { putInt("user_id", it) }
+                            apply()
+                        }
+
                         // Navigate to MainActivity
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        // Pass user info if needed
-                        response.username?.let {
-                            intent.putExtra("USERNAME", it)
-                        }
                         startActivity(intent)
                         finish() // Close LoginActivity
                     } else {
