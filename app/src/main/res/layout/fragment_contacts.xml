@@ -6,99 +6,69 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- iOS-style header -->
-    <!-- Add this to the header section in both XML files -->
-    <ImageButton
-        android:id="@+id/btn_menu"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@android:drawable/ic_menu_sort_by_size"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:tint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/contacts_header"
-        app:layout_constraintBottom_toBottomOf="@id/contacts_header"
-        android:contentDescription="Menu" />
-
-    <!-- Adjust the header TextView's constraints -->
-    <TextView
-        android:id="@+id/contacts_header"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/contacts"
-        android:textColor="@color/black"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_menu"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!-- iOS-style search bar -->
-    <EditText
-        android:id="@+id/search_contacts"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/search_background"
-        android:drawableStart="@android:drawable/ic_menu_search"
-        android:drawablePadding="8dp"
-        android:drawableTint="@color/ios_gray"
-        android:fontFamily="sans-serif"
-        android:hint="@string/search_contacts"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/ios_gray"
-        android:textSize="16sp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/contactsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contacts_header" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- Subtle divider -->
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="#E0E0E0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_contacts" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:text="Contacts"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <!-- Contacts RecyclerView -->
+        <ImageButton
+            android:id="@+id/btnAddContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_add"
+            android:tint="@color/ios_blue" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/contacts_recycler_view"
-        android:layout_width="0dp"
+        android:id="@+id/contactsRecyclerView"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:paddingTop="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@id/contactsToolbar" />
 
-    <!-- iOS-style Add Contact button (floating action button) -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add_contact"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_margin="24dp"
-        android:contentDescription="Add Contact"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="@color/white"
-        app:backgroundTint="@color/ios_blue"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:fabCustomSize="56dp"
+    <TextView
+        android:id="@+id/emptyContactsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="No contacts yet.\nTap the + button to add a contact."
+        android:textColor="#777777"
+        android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="24dp"
-        app:tint="@color/white" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

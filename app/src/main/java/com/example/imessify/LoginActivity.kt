@@ -9,8 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.os.Build
 import android.util.Log
-import android.view.WindowInsetsController
-import android.view.WindowManager
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,6 +17,9 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import com.example.imessify.api.ApiService
+import com.example.imessify.api.LoginRequest
+import com.example.imessify.api.LoginResponse
 
 class LoginActivity : AppCompatActivity() {
 
@@ -43,15 +45,41 @@ class LoginActivity : AppCompatActivity() {
         // Make status bar transparent
         setupTransparentStatusBar()
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        // Use WindowCompat for handling window insets instead of deprecated setSoftInputMode
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        // Check if user is already logged in
+        // Get shared preferences
         val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        if (sharedPref.contains("user_id")) {
-            // User is already logged in, navigate to MainActivity
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-            return
+        
+        // Check if this is the first launch of the app
+        val isFirstLaunch = getSharedPreferences("app_prefs", MODE_PRIVATE)
+            .getBoolean("first_launch", true)
+        
+        // Clear stored credentials on first launch or if there was a login issue
+        val hasLoginIssue = intent.getBooleanExtra("LOGIN_ERROR", false)
+        
+        if (isFirstLaunch || hasLoginIssue) {
+            // Clear SharedPreferences to ensure login screen is shown
+            sharedPref.edit().clear().apply()
+            
+            // Mark first launch as completed
+            getSharedPreferences("app_prefs", MODE_PRIVATE)
+                .edit()
+                .putBoolean("first_launch", false)
+                .apply()
+                
+            if (hasLoginIssue) {
+                Toast.makeText(this, "Please log in again", Toast.LENGTH_SHORT).show()
+            }
+        } else if (sharedPref.contains("user_id")) {
+            // Only auto-login if not first launch and user_id exists
+            val userId = sharedPref.getInt("user_id", -1)
+            if (userId > 0) {
+                // User is already logged in, navigate to MainActivity
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+                return
+            }
         }
 
         // Initialize views
@@ -97,7 +125,8 @@ class LoginActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val request = LoginRequest(email, password)
+                // Create request with both email and username (using email as username)
+                val request = LoginRequest(email, password, email.substringBefore('@'))
 
                 // Log the request object
                 Log.d("LoginActivity", "Sending login request with email: $email")
@@ -156,13 +185,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupTransparentStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.statusBarColor = android.graphics.Color.WHITE
-            window.insetsController?.apply {
-                setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                )
+            // Use WindowCompat for modern API approach
+            WindowCompat.getInsetsController(window, window.decorView).apply {
+                isAppearanceLightStatusBars = true
             }
+            // Use window.decorView methods instead of deprecated setStatusBarColor
+            window.decorView.setWindowInsetsAnimationCallback(null)
+            window.setBackgroundDrawableResource(android.R.color.white)
+        } else {
+            // Fallback for older devices
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            @Suppress("DEPRECATION")
+            window.statusBarColor = android.graphics.Color.WHITE
         }
     }
 }

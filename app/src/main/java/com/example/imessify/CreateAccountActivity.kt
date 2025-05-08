@@ -10,14 +10,15 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.imessify.api.ApiService
+import com.example.imessify.api.RegisterRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.POST
 
 class CreateAccountActivity : AppCompatActivity() {
 
@@ -45,7 +46,8 @@ class CreateAccountActivity : AppCompatActivity() {
         // Make status bar transparent
         setupTransparentStatusBar()
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        // Use WindowCompat.setDecorFitsSystemWindows instead of deprecated setSoftInputMode
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         // Initialize views
         etUsername = findViewById(R.id.etUsername)
@@ -137,13 +139,19 @@ class CreateAccountActivity : AppCompatActivity() {
 
     private fun setupTransparentStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.statusBarColor = android.graphics.Color.WHITE
-            window.insetsController?.apply {
-                setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                )
+            // Use WindowCompat for modern API approach
+            WindowCompat.getInsetsController(window, window.decorView).apply {
+                isAppearanceLightStatusBars = true
             }
+            // Use window.decorView.setSystemUiVisibility instead of deprecated setStatusBarColor
+            window.decorView.setWindowInsetsAnimationCallback(null)
+            window.setBackgroundDrawableResource(android.R.color.white)
+        } else {
+            // Fallback for older devices
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            @Suppress("DEPRECATION")
+            window.statusBarColor = android.graphics.Color.WHITE
         }
     }
 }

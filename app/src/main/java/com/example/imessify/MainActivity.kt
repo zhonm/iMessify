@@ -1,100 +1,77 @@
 package com.example.imessify
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.imessify.databinding.ActivityMainBinding
-import com.example.imessify.databinding.NavigationDrawerBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+// Interface for drawer functionality
+interface DrawerInterface {
+    fun openDrawer()
+    fun closeDrawer()
+    fun isDrawerOpen(): Boolean
+}
 
+class MainActivity : AppCompatActivity(), DrawerInterface {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var drawerBinding: NavigationDrawerBinding
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Setup drawer layout
-        drawerLayout = binding.drawerLayout
-        drawerBinding = NavigationDrawerBinding.bind(findViewById(R.id.navigation_drawer))
-
-        // Setup drawer menu item clicks
-        setupDrawerListeners()
-
-        // Setup white status bar
-        setupStatusBar()
-
-        // Load MessagesFragment as default when app starts
+        
+        // Set up bottom navigation
+        setupBottomNavigation()
+        
+        // Load ContactsFragment as default
         if (savedInstanceState == null) {
-            loadFragment(MessagesFragment())
+            loadFragment(ContactsFragment())
+            // Set the selected item in the navigation bar
+            binding.navView.selectedItemId = R.id.navigation_contacts
         }
-
-        // Set up bottom navigation listener
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+    }
+    
+    private fun setupBottomNavigation() {
+        binding.navView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.navigation_messages -> {
                     loadFragment(MessagesFragment())
-                    true
+                    return@setOnItemSelectedListener true
                 }
                 R.id.navigation_contacts -> {
                     loadFragment(ContactsFragment())
-                    true
+                    return@setOnItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
                     loadFragment(ProfileFragment())
-                    true
+                    return@setOnItemSelectedListener true
                 }
-                else -> false
             }
+            false
         }
     }
-
-    private fun setupDrawerListeners() {
-        drawerBinding.navSettings.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
-
-        drawerBinding.navRecentlyDeleted.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
-            startActivity(Intent(this, RecentlyDeletedActivity::class.java))
-        }
-    }
-
-    // Method to be called by fragments to toggle drawer
-    fun toggleDrawer() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
-    }
-
-    private fun setupStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            // For Android 11 (API level 30) and above
-            window.statusBarColor = android.graphics.Color.WHITE
-            window.insetsController?.apply {
-                // Set light status bar with dark icons
-                setSystemBarsAppearance(
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                )
-            }
-        }
-    }
-
+    
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.container, fragment)
             .commit()
+    }
+    
+    // Implement DrawerInterface methods
+    override fun openDrawer() {
+        // Implement drawer opening logic if needed
+        // Example: binding.drawerLayout.openDrawer(GravityCompat.START)
+    }
+    
+    override fun closeDrawer() {
+        // Implement drawer closing logic if needed
+        // Example: binding.drawerLayout.closeDrawer(GravityCompat.START)
+    }
+    
+    override fun isDrawerOpen(): Boolean {
+        // Implement drawer state checking
+        // Example: return binding.drawerLayout.isDrawerOpen(GravityCompat.START)
+        return false
     }
 }

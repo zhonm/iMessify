@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -43,10 +44,24 @@ class ProfileFragment : Fragment() {
         // Set user details
         setupUserProfile()
 
+        // Setup profile image click listener
+        binding.profileImage.setOnClickListener {
+            onProfileImageClick(it)
+        }
+
         // Setup logout button
         binding.btnLogout.setOnClickListener {
             showLogoutConfirmationDialog()
         }
+    }
+
+    // Add the missing method that's being referenced in an onClick attribute
+    fun onProfileImageClick(view: View) {
+        // Show a dialog or launch an intent to change profile picture
+        Toast.makeText(requireContext(), "Change profile picture", Toast.LENGTH_SHORT).show()
+
+        // You can add more functionality here to change the profile picture
+        // For example, show an options dialog to take a photo or choose from gallery
     }
 
     private fun setupProfileImage() {
